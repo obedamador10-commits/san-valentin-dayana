@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Dayana ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    font-family:'Dancing Script',cursive;
+    text-align:center;
+    color:white;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+
+    background: linear-gradient(-45deg,#001a33,#003366,#004d80,#0077b3);
+    background-size:400% 400%;
+    animation:fondoAnimado 12s ease infinite;
+}
+
+@keyframes fondoAnimado{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+h1{
+    font-size:3em;
+    animation:brillo 3s infinite alternate;
+}
+
+@keyframes brillo{
+    from{text-shadow:0 0 10px #87CEFA;}
+    to{text-shadow:0 0 25px #ffffff;}
+}
+
+button{
+    margin:15px;
+    padding:12px 25px;
+    font-size:1.2em;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+}
+
+.si{background:#87CEFA; color:#003366;}
+.no{background:#ff4d6d; color:white; position:absolute;}
+
+/* TEXTO FINAL */
+.texto-final{
+    max-width:800px;
+    padding:40px;
+    font-size:2em;
+    line-height:1.6;
+    border-radius:20px;
+
+    background:rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:0 0 30px rgba(0,0,0,0.3);
+
+    opacity:0;
+    animation:fadeIn 2s forwards;
+    z-index:2;
+}
+
+@keyframes fadeIn{
+    to{opacity:1;}
+}
+
+/* BURBUJAS */
+.burbuja{
+    position:absolute;
+    bottom:-50px;
+    background:rgba(255,255,255,0.2);
+    border-radius:50%;
+    animation:subir linear infinite;
+}
+
+@keyframes subir{
+    0%{transform:translateY(0);}
+    100%{transform:translateY(-110vh);}
+}
+
+/* PECES */
+.pez{
+    position:absolute;
+    opacity:0.7;
+    z-index:0;
+    animation:nadarPez linear infinite;
+}
+
+@keyframes nadarPez{
+    from{ left:-150px; }
+    to{ left:110%; }
+}
+
+.cola{
+    transform-origin:40px 30px;
+    animation:ondularCola 0.5s infinite ease-in-out;
+}
+
+@keyframes ondularCola{
+    0%   { transform:skewY(0deg); }
+    25%  { transform:skewY(-12deg); }
+    50%  { transform:skewY(0deg); }
+    75%  { transform:skewY(12deg); }
+    100% { transform:skewY(0deg); }
+}
+
+
+/* TORTUGAS MARINAS */
+.tortuga{
+    position:absolute;
+    opacity:0.4;
+    z-index:1;   /* IMPORTANTE */
+    pointer-events:none;
+    animation:nadarTortuga linear infinite;
+}
+
+@keyframes nadarTortuga{
+    0%{ left:-300px; transform:translateY(0); }
+    50%{ transform:translateY(-15px); }
+    100%{ left:110%; transform:translateY(0); }
+}
+
+.aleta-tortuga{
+    transform-origin:center;
+    animation:moverAleta 2s infinite ease-in-out alternate;
+}
+
+@keyframes moverAleta{
+    from{ transform:rotate(-12deg); }
+    to{ transform:rotate(12deg); }
+</style>
+</head>
+
+<body>
+
+<div id="principal">
+    <h1>Dayana… 💙<br>¿Quieres ser mi San Valentín?</h1>
+
+    <p>
+        Eres como el océano profundo… tranquila, hermosa y única 💙
+    </p>
+
+    <button class="si" onclick="aceptar()">Sí 💍</button>
+    <button class="no" id="btnNo">No 😅</button>
+</div>
+
+<audio id="musica" src="Best Part.mp3" loop></audio>
+
+<script>
+
+/* Música */
+document.body.addEventListener("click", function(){
+    document.getElementById("musica").play();
+},{once:true});
+
+/* Botón que huye */
+const btnNo = document.getElementById("btnNo");
+btnNo.addEventListener("mouseover", function(){
+    btnNo.style.left=Math.random()*80+"vw";
+    btnNo.style.top=Math.random()*80+"vh";
+});
+
+/* Máquina de escribir */
+function escribirTexto(elemento, texto, velocidad){
+    let i = 0;
+    function escribir(){
+        if(i < texto.length){
+            elemento.innerHTML += texto.charAt(i);
+            i++;
+            setTimeout(escribir, velocidad);
+        }
+    }
+    escribir();
+}
+
+/* Aceptar */
+function aceptar(){
+    document.getElementById("principal").style.display="none";
+
+    const textoDiv = document.createElement("div");
+    textoDiv.classList.add("texto-final");
+    document.body.appendChild(textoDiv);
+
+    const mensaje = `
+Dayana… 💙
+
+Tu belleza no se compara con nada en este mundo.
+Eres increíblemente hermosa por fuera y por dentro.
+Tu luz ilumina todo lo que tocas. ✨
+
+Quiero construir algo bonito contigo,
+con amor sincero y a Dios en el centro. 🙏💙
+`;
+
+    escribirTexto(textoDiv, mensaje, 30);
+    explotarBurbujas();
+}
+
+/* Burbujas */
+function crearBurbujas(){
+    const burbuja=document.createElement("div");
+    burbuja.classList.add("burbuja");
+
+    let size=Math.random()*20+10;
+    burbuja.style.width=size+"px";
+    burbuja.style.height=size+"px";
+    burbuja.style.left=Math.random()*100+"vw";
+    burbuja.style.animationDuration=(Math.random()*5+5)+"s";
+
+    document.body.appendChild(burbuja);
+    setTimeout(()=>burbuja.remove(),10000);
+}
+setInterval(crearBurbujas,500);
+
+function explotarBurbujas(){
+    for(let i=0;i<25;i++){
+        setTimeout(crearBurbujas,i*100);
+    }
+}
+
+/* Peces corregidos */
+function crearPez(){
+
+    const colores = ["#ff6b6b","#ffd93d","#6bcBef","#ff9f1c","#c77dff","#00f5d4"];
+
+    const pez=document.createElementNS("http://www.w3.org/2000/svg","svg");
+    pez.setAttribute("viewBox","0 0 120 60");
+    pez.classList.add("pez");
+
+    let size=Math.random()*50+40;
+    pez.style.width=size+"px";
+    pez.style.top=Math.random()*90+"vh";
+    pez.style.animationDuration=(Math.random()*25+20)+"s";
+
+    const color = colores[Math.floor(Math.random()*colores.length)];
+
+    pez.innerHTML=`
+        <!-- Cola atrás correctamente -->
+        <polygon class="cola" points="40,30 10,15 10,45" fill="${color}"/>
+        
+        <!-- Cuerpo -->
+        <ellipse cx="70" cy="30" rx="35" ry="18" fill="${color}"/>
+        
+        <!-- Ojo -->
+        <circle cx="85" cy="25" r="4" fill="white"/>
+        <circle cx="87" cy="25" r="2" fill="black"/>
+    `;
+
+    document.body.appendChild(pez);
+    setTimeout(()=>pez.remove(),50000);
+}
+
+setInterval(crearPez,3500);
+
+function crearTortuga(){
+
+    const tortuga=document.createElementNS("http://www.w3.org/2000/svg","svg");
+    tortuga.setAttribute("viewBox","0 0 300 200");
+    tortuga.classList.add("tortuga");
+
+    let size=Math.random()*100+120;
+    tortuga.style.width=size+"px";
+    tortuga.style.top=Math.random()*70+"vh";
+    tortuga.style.animationDuration=(Math.random()*40+40)+"s";
+
+    tortuga.innerHTML=`
+        <!-- Caparazón -->
+        <ellipse cx="150" cy="100" rx="70" ry="50" fill="#2e8b57"/>
+        <circle cx="150" cy="90" r="18" fill="#3cb371"/>
+        <circle cx="130" cy="110" r="15" fill="#3cb371"/>
+        <circle cx="170" cy="110" r="15" fill="#3cb371"/>
+
+        <!-- Cabeza -->
+        <ellipse cx="230" cy="100" rx="30" ry="22" fill="#3cb371"/>
+        <circle cx="240" cy="95" r="4" fill="white"/>
+        <circle cx="242" cy="95" r="2" fill="black"/>
+
+        <!-- Aletas -->
+        <ellipse class="aleta-tortuga" cx="120" cy="150" rx="35" ry="12" fill="#2e8b57"/>
+        <ellipse class="aleta-tortuga" cx="180" cy="150" rx="35" ry="12" fill="#2e8b57"/>
+    `;
+
+    document.body.appendChild(tortuga);
+
+    setTimeout(()=>tortuga.remove(),90000);
+}
+</script>
+
+</body>
+</html>
